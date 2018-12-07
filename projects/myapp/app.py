@@ -1,6 +1,6 @@
-import mypkg
+from mypkg.greeting import hello
 
-mypkg.greeting("world!")
+hello("world")
 
 # def greeting(name):
 #   print("Hello, " + name)
