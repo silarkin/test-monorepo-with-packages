@@ -19,7 +19,8 @@ Overview
     git clone ~/src/test-monorepo-with-python-and-packages myapp-repo
     cd myapp-repo/projects/myapp
     git checkout -b myapp-branch
-    ln -f ../../../mypkg-repo/projects/mypkg mypkg
+    ln -sfn ../../../mypkg-repo/projects/mypkg mypkg
+    python myapp.py
 
 
 - Symbolic links to packages are .gitignore'd to avoid unintended commits of modified symbolic links.
