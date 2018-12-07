@@ -14,7 +14,9 @@ Overview
     git clone ~/src/test-monorepo-with-python-and-packages mypkg-repo
     cd mypkg-repo/projects/mypkg
     git checkout -b mypkg-branch
-    \<make some changes\>
+    sed -i '' 's/Hello,/Hello again,/g' greeting.py
+    git diff
+
     cd ~/src
     git clone ~/src/test-monorepo-with-python-and-packages myapp-repo
     cd myapp-repo/projects/myapp
