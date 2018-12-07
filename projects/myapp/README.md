@@ -12,12 +12,12 @@ Overview
 
     git clone ~/src/test-monorepo-with-python-and-packages mypkg-repo
     cd mypkg-repo/projects/mypkg
-    git checkout -b branch1
+    git checkout -b mypkg-branch
     \<make some changes\>
     cd ~/src
     git clone ~/src/test-monorepo-with-python-and-packages myapp-repo
     cd myapp-repo/projects/myapp
-    git checkout -b branch2
+    git checkout -b myapp-branch
     ln -f ../../../mypkg-repo/projects/mypkg mypkg
 
 
