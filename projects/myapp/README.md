@@ -10,11 +10,12 @@ Overview
 - By default, the imported package will be on the same git branch as myapp, so that a single pull request can modify code in both ```myapp``` and ```mypkg```.
 - It is possible to use and modify a different revision (or branch) of ```mypkg``` by updating the symbolic link. Here's an example:
 
-    git clone ~/src/test-monorepo-with-python-and-packages myapp-repo
     git clone ~/src/test-monorepo-with-python-and-packages mypkg-repo
     cd mypkg-repo/projects/mypkg
     git checkout -b branch1
     \<make some changes\>
+    cd ~/src
+    git clone ~/src/test-monorepo-with-python-and-packages myapp-repo
     cd myapp-repo/projects/myapp
     git checkout -b branch2
     ln -f ../../../mypkg-repo/projects/mypkg mypkg
