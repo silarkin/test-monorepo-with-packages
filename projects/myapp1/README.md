@@ -13,16 +13,17 @@ Overview
     # Check out and run myapp1 unmodified with
     # latest (master) application & package code
     #
+    cd ~/src
     export WKDIR=`pwd`
     cd $WKDIR && git clone test-monorepo-with-packages myapp1-repo
     cd myapp1-repo/projects/myapp1
-    pwd && git branch && python main.py    
+    pwd && git branch | grep '*' && python main.py    
 
     # create branch of myapp1, modify its behavior
     git checkout -b myapp1-branch
     sed -i '' 's/world/worldlings/g' main.py
-    pwd && git branch && git diff
-    pwd && git branch && python main.py    
+    pwd && git branch | grep '*' && git diff
+    pwd && git branch | grep '*' && python main.py    
 
     # Check out separate repo for mypkg development
     # create branch, modify package behavior
@@ -31,15 +32,15 @@ Overview
     cd mypkg-repo/projects/mypkg
     git checkout -b mypkg-branch
     sed -i '' 's/Hello/Hello again/g' greeting.py
-    pwd && git branch && git diff
+    pwd && git branch | grep '*' && git diff
     python ../myapp1/main.py    
 
     # Go back to application library, run in-development myapp1 with
     # in-development modified libary
     cd $WKDIR/myapp1-repo/projects/myapp1
     ln -sfn $WKDIR/mypkg-repo/projects/mypkg mypkg
-    pwd && git branch && git diff
-    pwd && git branch && python main.py    
+    pwd && git branch | grep '*' && git diff
+    pwd && git branch | grep '*' && python main.py    
 
 
 - (not working...yet) Symbolic links to packages are .gitignore'd to avoid unintended commits of modified symbolic links.
