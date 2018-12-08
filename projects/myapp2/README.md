@@ -10,12 +10,14 @@ Overview
 - By default, the imported package will be on the same git branch as myapp, so that a single pull request can modify code in both ```myapp2``` and ```mypkg``` (and other applications that use mypkg, if making a non-backward-compatible change).
 - It is possible to use and modify a different revision (or branch) of ```mypkg``` by checking out another copy of the repository on a different branch/commit/tag, and updating the ```myapp2/mypkg``` symbolic link. Here's an example:
 
+    # some shell variables for an easier-to-read demo
+    export WKDIR=`pwd`
+    export ORIGIN=https://github.com/silarkin/test-monorepo-with-packages.git
+
     # Check out and run myapp2 unmodified with
     # latest (master) application & package code
     #
-    cd ~/src
-    export WKDIR=`pwd`
-    cd $WKDIR && git clone test-monorepo-with-packages myapp2-repo
+    cd $WKDIR && git clone $ORIGIN myapp2-repo
     cd myapp2-repo/projects/myapp2
     pwd && git branch | grep '*' && python main.py    
 
@@ -28,7 +30,7 @@ Overview
     # Check out separate repo for mypkg development
     # create branch, modify package behavior
     #
-    cd $WKDIR && git clone test-monorepo-with-packages mypkg-repo
+    cd $WKDIR && git clone $ORIGIN mypkg-repo
     cd mypkg-repo/projects/mypkg
     git checkout -b mypkg-branch
     sed -i '' 's/Hello/Hello again/g' greeting.py
