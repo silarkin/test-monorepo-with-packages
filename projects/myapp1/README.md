@@ -1,29 +1,45 @@
-myapp
-=====
+Myapp1
+=======
 
 Overview
 --------
 
-```myapp``` is a python application that uses the ```mypkg``` Python package to print "Hello, world!". It is intended as a demonstration of python dependency management in a single repository.
+```myapp1``` is a python application that uses the ```mypkg``` Python package to print "Hello, world!". It is intended as a demonstration of python dependency management in a single repository.
 
-- The symbolic link ```myapp/mypkg``` with value ```../mypkg``` makes ```mypkg``` visible to myapp.
-- By default, the imported package will be on the same git branch as myapp, so that a single pull request can modify code in both ```myapp``` and ```mypkg```.
-- It is possible to use and modify a different revision (or branch) of ```mypkg``` by updating the symbolic link. Here's an example:
+- The symbolic link ```myapp1/mypkg``` with value ```../mypkg``` makes ```mypkg``` visible to myapp1.
+- By default, the imported package will be on the same git branch as myapp, so that a single pull request can modify code in both ```myapp1``` and ```mypkg``` (and other applications that use mypkg, if making a non-backward-compatible change).
+- It is possible to use and modify a different revision (or branch) of ```mypkg``` by checking out another copy of the repository on a different branch/commit/tag, and updating the ```myapp1/mypkg``` symbolic link. Here's an example:
 
-    cd ~/src
-    git clone ~/src/test-monorepo-with-python-and-packages mypkg-repo
+    # Check out and run myapp1 unmodified with
+    # latest (master) application & package code
+    #
+    export WKDIR=`pwd`
+    cd $WKDIR && git clone test-monorepo-with-packages myapp1-repo
+    cd myapp1-repo/projects/myapp1
+    pwd && git branch && python main.py    
+
+    # create branch of myapp1, modify its behavior
+    git checkout -b myapp1-branch
+    sed -i '' 's/world/worldlings/g' main.py
+    pwd && git branch && git diff
+    pwd && git branch && python main.py    
+
+    # Check out separate repo for mypkg development
+    # create branch, modify package behavior
+    #
+    cd $WKDIR && git clone test-monorepo-with-packages mypkg-repo
     cd mypkg-repo/projects/mypkg
     git checkout -b mypkg-branch
-    sed -i '' 's/Hello,/Hello again,/g' greeting.py
-    git diff
+    sed -i '' 's/Hello/Hello again/g' greeting.py
+    pwd && git branch && git diff
+    python ../myapp1/main.py    
 
-    cd ~/src
-    git clone ~/src/test-monorepo-with-python-and-packages myapp-repo
-    cd myapp-repo/projects/myapp
-    git checkout -b myapp-branch
-    python myapp.py    
-    ln -sfn ../../../mypkg-repo/projects/mypkg mypkg
-    python myapp.py
+    # Go back to application library, run in-development myapp1 with
+    # in-development modified libary
+    cd $WKDIR/myapp1-repo/projects/myapp1
+    ln -sfn $WKDIR/mypkg-repo/projects/mypkg mypkg
+    pwd && git branch && git diff
+    pwd && git branch && python main.py    
 
 
 - (not working...yet) Symbolic links to packages are .gitignore'd to avoid unintended commits of modified symbolic links.
