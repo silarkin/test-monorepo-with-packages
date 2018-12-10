@@ -31,7 +31,7 @@ Overview
     # create branch, modify package behavior
     #
     cd $WKDIR && git clone $ORIGIN mypkg-repo
-    cd mypkg-repo/projects/mypkg
+    cd mypkg-repo/projects/shared-libraries/mypkg
     git checkout -b mypkg-branch
     sed -i '' 's/Hello/Hello again/g' greeting.py
     pwd && git branch | grep '*' && git diff
@@ -40,7 +40,7 @@ Overview
     # Go back to application library, run in-development myapp1 with
     # in-development modified libary
     cd $WKDIR/myapp1-repo/projects/myapp1
-    ln -sfn $WKDIR/mypkg-repo/projects/mypkg mypkg
+    ln -sfn $WKDIR/mypkg-repo/projects/shared-library/mypkg mypkg
     pwd && git branch | grep '*' && git diff
     pwd && git branch | grep '*' && python main.py    
 
